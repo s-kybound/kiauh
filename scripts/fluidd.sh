@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -44,7 +44,7 @@ function install_fluidd() {
 
   status_msg "Initializing Fluidd installation ..."
   ### first, we create a backup of the full klipper_config dir - safety first!
-  #backup_klipper_config_dir
+  backup_config_dir
 
   ### check for other enabled web interfaces
   unset SET_LISTEN_PORT
@@ -317,10 +317,16 @@ function get_fluidd_status() {
 }
 
 function get_local_fluidd_version() {
-  [[ ! -f "${FLUIDD_DIR}/.version" ]] && return
-
+  local versionfile="${FLUIDD_DIR}/.version"
+  local relinfofile="${FLUIDD_DIR}/release_info.json"
   local version
-  version=$(head -n 1 "${FLUIDD_DIR}/.version")
+
+  if [[ -f ${relinfofile} ]]; then
+    version=$(grep -o '"version":"[^"]*' "${relinfofile}" | grep -o '[^"]*$')
+  elif [[ -f ${versionfile} ]]; then
+    version=$(head -n 1 "${versionfile}")
+  fi
+
   echo "${version}"
 }
 

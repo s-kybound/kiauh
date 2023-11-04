@@ -1,6 +1,6 @@
 <p align="center">
   <a>
-    <img src="https://raw.githubusercontent.com/th33xitus/kiauh/master/resources/screenshots/kiauh.png" alt="KIAUH logo" height="181">
+    <img src="https://raw.githubusercontent.com/dw-0/kiauh/master/resources/screenshots/kiauh.png" alt="KIAUH logo" height="181">
     <h1 align="center">Klipper Installation And Update Helper</h1>
   </a>
 </p>
@@ -10,14 +10,14 @@
 </p>
 
 <p align="center">
-  <a><img src="https://img.shields.io/github/license/th33xitus/kiauh"></a>
-  <a><img src="https://img.shields.io/github/stars/th33xitus/kiauh"></a>
-  <a><img src="https://img.shields.io/github/forks/th33xitus/kiauh"></a>
-  <a><img src="https://img.shields.io/github/languages/top/th33xitus/kiauh?logo=gnubash&logoColor=white"></a>
-  <a><img src="https://img.shields.io/github/v/tag/th33xitus/kiauh"></a>
+  <a><img src="https://img.shields.io/github/license/dw-0/kiauh"></a>
+  <a><img src="https://img.shields.io/github/stars/dw-0/kiauh"></a>
+  <a><img src="https://img.shields.io/github/forks/dw-0/kiauh"></a>
+  <a><img src="https://img.shields.io/github/languages/top/dw-0/kiauh?logo=gnubash&logoColor=white"></a>
+  <a><img src="https://img.shields.io/github/v/tag/dw-0/kiauh"></a>
   <br />
-  <a><img src="https://img.shields.io/github/last-commit/th33xitus/kiauh"></a>
-  <a><img src="https://img.shields.io/github/contributors/th33xitus/kiauh"></a>
+  <a><img src="https://img.shields.io/github/last-commit/dw-0/kiauh"></a>
+  <a><img src="https://img.shields.io/github/contributors/dw-0/kiauh"></a>
 </p>
 
 <hr>
@@ -36,12 +36,12 @@ is the simplest way to flash an image like this to an SD card.
 * Once you have downloaded, installed and launched the Raspberry Pi Imager, 
 select `Choose OS -> Raspberry Pi OS (other)`: \
 <p align="center">
-  <img src="https://raw.githubusercontent.com/th33xitus/kiauh/master/resources/screenshots/rpi_imager1.png" alt="KIAUH logo" height="350">
+  <img src="https://raw.githubusercontent.com/dw-0/kiauh/master/resources/screenshots/rpi_imager1.png" alt="KIAUH logo" height="350">
 </p>
 
 * Then select `Raspberry Pi OS Lite (32bit)`:
 <p align="center">
-  <img src="https://raw.githubusercontent.com/th33xitus/kiauh/master/resources/screenshots/rpi_imager2.png" alt="KIAUH logo" height="350">
+  <img src="https://raw.githubusercontent.com/dw-0/kiauh/master/resources/screenshots/rpi_imager2.png" alt="KIAUH logo" height="350">
 </p>
 
 * Back in the Raspberry Pi Imager's main menu, select the corresponding SD card to which 
@@ -71,7 +71,7 @@ sudo apt-get update && sudo apt-get install git -y
 Once git is installed, use the following command to download KIAUH into your home-directory:
 
 ```shell
-cd ~ && git clone https://github.com/th33xitus/kiauh.git
+cd ~ && git clone https://github.com/dw-0/kiauh.git
 ```
 
 * **Step 3:** \
@@ -152,22 +152,23 @@ prompt and confirm by hitting ENTER.
 </tr>
 
 <tr>
-<th><h3></h3></th>
+<th><h3><a href="https://github.com/Clon1998/mobileraker_companion">Mobileraker's Companion</a></h3></th>
 <th><h3><a href="https://octoeverywhere.com/?source=kiauh_readme">OctoEverywhere For Klipper</a></h3></th>
 <th><h3></h3></th>
 </tr>
 
 <tr>
-<th></th>
+<th><a href="https://github.com/Clon1998/mobileraker_companion"><img src="https://raw.githubusercontent.com/Clon1998/mobileraker/master/assets/icon/mr_appicon.png" alt="OctoEverywhere Logo" height="64"></th>
 <th><a href="https://octoeverywhere.com/?source=kiauh_readme"><img src="https://octoeverywhere.com/img/logo.svg" alt="OctoEverywhere Logo" height="64"></a></th>
 <th></th>
 </tr>
 
 <tr>
-<th></th>
+<th>by <a href="https://github.com/Clon1998">Patrick Schmidt</a></th>
 <th>by <a href="https://github.com/QuinnDamerell">Quinn Damerell</a></th>
 <th></th>
 </tr>
+
 
 </table>
 
@@ -176,7 +177,7 @@ prompt and confirm by hitting ENTER.
 <h2 align="center">✨ Credits ✨</h2>
 
 * A big thank you to [lixxbox](https://github.com/lixxbox) for that awesome KIAUH-Logo!
-* Also, a big thank you to everyone who supported my work with a [Ko-fi](https://ko-fi.com/th33xitus) !
+* Also, a big thank you to everyone who supported my work with a [Ko-fi](https://ko-fi.com/dw__0) !
 * Last but not least: Thank you to all contributors and members of the Klipper Community who like and share this project!
 
 <hr>

@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -112,7 +112,6 @@ function print_detected_mcu_to_screen() {
   fi
 
   for mcu in "${mcu_list[@]}"; do
-    mcu=$(echo "${mcu}" | rev | cut -d"/" -f1 | rev)
     echo -e " ● MCU #${i}: ${cyan}${mcu}${white}"
     i=$(( i + 1 ))
   done

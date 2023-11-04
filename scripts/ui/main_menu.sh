@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -12,10 +12,6 @@
 set -e
 
 function main_ui() {
-  echo -e "${yellow}/=======================================================\\"
-  echo -e "| Please read the newest changelog carefully:           |"
-  echo -e "| https://git.io/JnmlX                                  |"
-  echo -e "\=======================================================/${white}"
   top_border
   echo -e "|     $(title_msg "~~~~~~~~~~~~~~~ [ Main Menu ] ~~~~~~~~~~~~~~~")     |"
   hr
@@ -25,15 +21,17 @@ function main_ui() {
   echo -e "|  2) [Update]     |       Moonraker: $(print_status "moonraker")|"
   echo -e "|  3) [Remove]     |                                    |"
   echo -e "|  4) [Advanced]   |        Mainsail: $(print_status "mainsail")|"
-#  echo -e "|  5) [Backup]     |        Fluidd: $(print_status "fluidd")|"
-  echo -e "|                  |          Fluidd: $(print_status "fluidd")|"
+  echo -e "|  5) [Backup]     |          Fluidd: $(print_status "fluidd")|"
   echo -e "|                  |   KlipperScreen: $(print_status "klipperscreen")|"
   echo -e "|  6) [Settings]   |    Telegram Bot: $(print_status "telegram_bot")|"
   echo -e "|                  |       Crowsnest: $(print_status "crowsnest")|"
   echo -e "|                  |           Obico: $(print_status "moonraker_obico")|"
   echo -e "|                  |  OctoEverywhere: $(print_status "octoeverywhere")|"
+  echo -e "|                  |     Mobileraker: $(print_status "mobileraker")|"
   echo -e "|                  |                                    |"
-  echo -e "|  $(print_kiauh_version)|       Octoprint: $(print_status "octoprint")|"
+  echo -e "|                  |       Octoprint: $(print_status "octoprint")|"
+  hr
+  echo -e "|  $(print_kiauh_version)|    Changelog: ${magenta}https://git.io/JnmlX${white} |"
   quit_footer
 }
 
@@ -59,7 +57,7 @@ function print_status() {
   elif [[ ${status} == "Incomplete!" ]]; then
     status="${yellow}${status}${white}"
   elif [[ ${status} == "Not linked!" ]]; then
-    ### "Not linked!" is only required for Moonraker-obico
+    ### "Not linked!" is only required for Obico for Klipper
     status="${yellow}${status}${white}"
   else
     status="${green}${status}${white}"
@@ -114,8 +112,7 @@ function main_menu() {
       "restart crowsnest") do_action_service "restart" "crowsnest"; main_ui;;
       update) do_action "update_kiauh" "main_ui";;
       0)clear && print_header
-        #upload_selection
-        print_error "Function currently disabled! Sorry!"
+        upload_selection
         main_ui;;
       1)clear && print_header
         install_menu
@@ -130,8 +127,7 @@ function main_menu() {
         advanced_menu
         break;;
       5)clear && print_header
-        #backup_menu
-        print_error "Function currently disabled! Sorry!"
+        backup_menu
         main_ui;;
       6)clear && print_header
         settings_menu

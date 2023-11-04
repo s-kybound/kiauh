@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -44,7 +44,7 @@ function install_mainsail() {
 
   status_msg "Initializing Mainsail installation ..."
   ### first, we create a backup of the full klipper_config dir - safety first!
-  #backup_klipper_config_dir
+  backup_config_dir
 
   ### check for other enabled web interfaces
   unset SET_LISTEN_PORT
@@ -324,10 +324,16 @@ function get_mainsail_status() {
 }
 
 function get_local_mainsail_version() {
-  [[ ! -f "${MAINSAIL_DIR}/.version" ]] && return
-
+  local versionfile="${MAINSAIL_DIR}/.version"
+  local relinfofile="${MAINSAIL_DIR}/release_info.json"
   local version
-  version=$(head -n 1 "${MAINSAIL_DIR}/.version")
+
+  if [[ -f ${relinfofile} ]]; then
+    version=$(grep -o '"version":"[^"]*' "${relinfofile}" | grep -o '[^"]*$')
+  elif [[ -f ${versionfile} ]]; then
+    version=$(head -n 1 "${versionfile}")
+  fi
+
   echo "${version}"
 }
 
@@ -547,7 +553,7 @@ function get_mainsail_download_url() {
       url=${unstable_url}
     fi
   fi
-  
+
   echo "${url}"
 }
 

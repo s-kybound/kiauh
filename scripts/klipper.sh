@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -71,7 +71,7 @@ function start_klipper_setup() {
   ### user selection for python version
   print_dialog_user_select_python_version
   while true; do
-    read -p "${cyan}###### Select Python version:${white} " input
+    read -p "${cyan}###### Select Python version:${white} " -i "1" -e input
     case "${input}" in
       1)
         select_msg "Python 3.x\n"
@@ -244,6 +244,7 @@ function run_klipper_setup() {
 
   ### finalizing the setup with writing instance names to the kiauh.ini
   set_multi_instance_names
+  mask_disrupting_services
 
   print_confirm "${confirm}" && return
 }
@@ -295,7 +296,7 @@ function create_klipper_virtualenv() {
 # @param {string}: python_version - klipper-env python version
 #
 function install_klipper_packages() {
-  local packages python_version="${1}"
+  local packages log_name="Klipper" python_version="${1}"
   local install_script="${KLIPPER_DIR}/scripts/install-debian.sh"
 
   status_msg "Reading dependencies..."
@@ -321,21 +322,11 @@ function install_klipper_packages() {
   echo "${cyan}${packages}${white}" | tr '[:space:]' '\n'
   read -r -a packages <<< "${packages}"
 
-  ### Update system package info
-  status_msg "Updating package lists..."
-  if ! sudo apt-get update --allow-releaseinfo-change; then
-    log_error "failure while updating package lists"
-    error_msg "Updating package lists failed!"
-    exit 1
-  fi
+  ### Update system package lists if stale
+  update_system_package_lists
 
   ### Install required packages
-  status_msg "Installing required packages..."
-  if ! sudo apt-get install --yes "${packages[@]}"; then
-    log_error "failure while installing required klipper packages"
-    error_msg "Installing required packages failed!"
-    exit 1
-  fi
+  install_system_packages "${log_name}" "packages[@]"
 }
 
 function create_klipper_service() {
@@ -378,8 +369,8 @@ function create_klipper_service() {
 
     sudo cp "${service_template}" "${service}"
     sudo cp "${env_template}" "${env_file}"
-    sudo sed -i "s|%USER%|${USER}|g; s|%ENV%|${KLIPPY_ENV}|; s|%ENV_FILE%|${env_file}|" "${service}"
-    sudo sed -i "s|%USER%|${USER}|; s|%LOG%|${log}|; s|%CFG%|${cfg}|; s|%PRINTER%|${klippy_serial}|; s|%UDS%|${klippy_socket}|" "${env_file}"
+    sudo sed -i "s|%USER%|${USER}|g; s|%KLIPPER_DIR%|${KLIPPER_DIR}|; s|%ENV%|${KLIPPY_ENV}|; s|%ENV_FILE%|${env_file}|" "${service}"
+    sudo sed -i "s|%USER%|${USER}|; s|%KLIPPER_DIR%|${KLIPPER_DIR}|; s|%LOG%|${log}|; s|%CFG%|${cfg}|; s|%PRINTER%|${klippy_serial}|; s|%UDS%|${klippy_socket}|" "${env_file}"
 
     ok_msg "Klipper service file created!"
   fi
@@ -634,4 +625,35 @@ function get_klipper_python_ver() {
   local version
   version=$("${KLIPPY_ENV}"/bin/python --version 2>&1 | cut -d" " -f2 | cut -d"." -f1)
   echo "${version}"
+}
+
+function mask_disrupting_services() {
+  local brltty="false"
+  local brltty_udev="false"
+  local modem_manager="false"
+
+  [[ $(dpkg -s brltty  2>/dev/null | grep "Status") = *\ installed ]] && brltty="true"
+  [[ $(dpkg -s brltty-udev  2>/dev/null | grep "Status") = *\ installed ]] && brltty_udev="true"
+  [[ $(dpkg -s ModemManager  2>/dev/null | grep "Status") = *\ installed ]] && modem_manager="true"
+
+  status_msg "Installed brltty package detected, masking brltty service ..."
+  if [[ ${brltty} == "true" ]]; then
+    sudo systemctl stop brltty
+    sudo systemctl mask brltty
+  fi
+  ok_msg "brltty service masked!"
+
+  status_msg "Installed brltty-udev package detected, masking brltty-udev service ..."
+  if [[ ${brltty_udev} == "true" ]]; then
+    sudo systemctl stop brltty-udev
+    sudo systemctl mask brltty-udev
+  fi
+  ok_msg "brltty-udev service masked!"
+
+  status_msg "Installed ModemManager package detected, masking ModemManager service ..."
+  if [[ ${modem_manager} == "true" ]]; then
+    sudo systemctl stop ModemManager
+    sudo systemctl mask ModemManager
+  fi
+  ok_msg "ModemManager service masked!"
 }

@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -307,7 +307,7 @@ function clone_octoeverywhere() {
 }
 
 function install_octoeverywhere_dependencies() {
-  local packages
+  local packages log_name="OctoEverywhere"
   local install_script="${OCTOEVERYWHERE_DIR}/install.sh"
 
   ### read PKGLIST from official install-script
@@ -318,21 +318,11 @@ function install_octoeverywhere_dependencies() {
   echo "${cyan}${packages}${white}" | tr '[:space:]' '\n'
   read -r -a packages <<< "${packages}"
 
-  ### Update system package info
-  status_msg "Updating package lists..."
-  if ! sudo apt-get update --allow-releaseinfo-change; then
-    log_error "failure while updating package lists"
-    error_msg "Updating package lists failed!"
-    exit 1
-  fi
+  ### Update system package lists if stale
+  update_system_package_lists
 
   ### Install required packages
-  status_msg "Installing required packages..."
-  if ! sudo apt-get install --yes "${packages[@]}"; then
-    log_error "failure while installing required octoeverywhere packages"
-    error_msg "Installing required packages failed!"
-    exit 1
-  fi
+  install_system_packages "${log_name}" "packages[@]"
 }
 
 #===================================================#

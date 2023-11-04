@@ -4,7 +4,7 @@
 # Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
-# https://github.com/th33xitus/kiauh                                    #
+# https://github.com/dw-0/kiauh                                         #
 #                                                                       #
 # This file may be distributed under the terms of the GNU GPLv3 license #
 #=======================================================================#
@@ -77,5 +77,10 @@ function set_globals() {
   #=============== Crowsnest ================#
   CROWSNEST_DIR="${HOME}/crowsnest"
   CROWSNEST_REPO="https://github.com/mainsail-crew/crowsnest.git"
+
+  #=============== Mobileraker ================#
+  MOBILERAKER_ENV="${HOME}/mobileraker-env"
+  MOBILERAKER_DIR="${HOME}/mobileraker_companion"
+  MOBILERAKER_REPO="https://github.com/Clon1998/mobileraker_companion.git"
 
 }
