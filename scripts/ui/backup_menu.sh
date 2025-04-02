@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #=======================================================================#
-# Copyright (C) 2020 - 2023 Dominik Willner <th33xitus@gmail.com>       #
+# Copyright (C) 2020 - 2024 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
 # This file is part of KIAUH - Klipper Installation And Update Helper   #
 # https://github.com/dw-0/kiauh                                         #
@@ -26,6 +26,7 @@ function backup_ui() {
   echo -e "| Klipper Webinterface:      | Other:                   |"
   echo -e "|  5) [Mainsail]             |  9) [Telegram Bot]       |"
   echo -e "|  6) [Fluidd]               | 10) [OctoEverywhere]     |"
+  echo -e "|                            | 11) [Spoolman]           |"
   back_footer
 }
 
@@ -56,6 +57,8 @@ function backup_menu() {
         do_action "backup_telegram_bot" "backup_ui";;
       10)
         do_action "backup_octoeverywhere" "backup_ui";;
+      11)
+        do_action "backup_spoolman" "backup_ui";;
       B|b)
         clear; main_menu; break;;
       *)
